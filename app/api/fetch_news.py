@@ -1,27 +1,16 @@
 from fastapi import APIRouter, Depends
+
 from app.dependencies import get_conn
-
 from app.dependencies import get_news_fetcher
-from typing import Dict
-
+from app.repositories.news_repository import insert_news
 
 router = APIRouter()
 
 @router.post("/get_news")
-async def add_news(currency: str, conn=Depends(get_conn)) -> Dict:
+async def add_news(currency: str, conn=Depends(get_conn)):
     news_class_cached = get_news_fetcher()
     news = await news_class_cached.fetch_news(currency)
-    async with conn.cursor() as cursor:
-        for doc in news:
-            await cursor.execute("""INSERT INTO crypto_news
-                                    (title, summary, publish_time, currency, relevance_score, ticker_sentiment)
-                                    VALUES (%s, %s, %s, %s, %s, %s)
-                                    ON CONFLICT (currency, title, publish_time) DO NOTHING""",
-                                    
-                                    (doc.title, doc.summary, doc.date_published,
-                                     doc.currency, doc.relevance_score, doc.ticker_sentiment_score))
 
-        await conn.commit()
-
-
-    return {"message": f"Values successfully logged"}
+    await insert_news(conn, news)
+    
+    return {"message": "Values successfully written to the database"}
