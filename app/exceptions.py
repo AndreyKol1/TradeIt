@@ -21,4 +21,12 @@ class InvalidCryptoNameError(Exception):
         self.message = message
         super().__init__(f"{service}: {message}")
 
+class DataBaseConnectionError(Exception):
+    """Failure in connection to the database"""
+
+    def __init__(self, message: str):
+        self.message = message 
+
+        super().__init__(message)
+
     
