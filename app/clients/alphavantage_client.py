@@ -6,7 +6,6 @@ from app.utils.logger import get_logger
 
 from typing import Dict
 
-
 class AlphaVantageClient:
     def __init__(self):
         self.base_url = 'https://www.alphavantage.co/query'
