@@ -15,5 +15,4 @@ async def add_prices(currency: str, period: str = "DAILY", conn=Depends(get_conn
 
     await insert_prices(conn, prices)
 
-
     return {"message": f"Successfully fetched prices for {currency}!"}
