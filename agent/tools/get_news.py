@@ -1,4 +1,5 @@
 import psycopg
+
 from psycopg.rows import dict_row
 from app.database.config import CONN_STRING 
 from langchain.tools import tool
@@ -6,6 +7,7 @@ from typing import List, Dict
 from app.utils.logger import get_logger
 
 from agent.schemas.tool_news_schema import GetNewsDB 
+from app.exceptions import DataBaseConnectionError
 
 logger = get_logger("main")
 

@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import date, datetime
 
-from typing import Optional, List, Union
+from typing import Optional, Union
 
 class CryptoPricesDataSchema(BaseModel):
     date_price : Union[date, datetime]

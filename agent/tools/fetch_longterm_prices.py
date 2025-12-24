@@ -42,11 +42,11 @@ Use this when price data for day, week or month is outdated or you need deeper a
 
     except requests.exceptions.Timeout:
         logger.error(f"Timeout fetching prices for {currency}")
-        return f"Request timed out. The API may be slow or unavailable"
+        return "Request timed out. The API may be slow or unavailable"
 
     except requests.exceptions.ConnectionError:
         logger.error(f"Connection error for fetching prices for {currency}")
-        return f"Could not connect to AlphaVantage. Check network connection."
+        return "Could not connect to AlphaVantage. Check network connection."
 
     except requests.exceptions.HTTPError as e:
         status = e.response.status_code
@@ -55,13 +55,13 @@ Use this when price data for day, week or month is outdated or you need deeper a
         if status == 400:
             return f"Currency {currency} not found"
         elif status == 429:
-            return f"Rate limit exceeded. Please wait"
+            return "Rate limit exceeded. Please wait"
         elif status == 502:
-            return f"Alpha Vantage API is currently unavailable"
+            return "Alpha Vantage API is currently unavailable"
 
         return f"API Error (HTTP {status}) fetching prices for currency {currency}"
 
-    except Exception as e:
+    except Exception:
         logger.exception(f"Unexpected error happened while fetching prices for {currency}")
-        return f"Unexpected error occurred while fetching prices"
+        return "Unexpected error occurred while fetching prices"
 

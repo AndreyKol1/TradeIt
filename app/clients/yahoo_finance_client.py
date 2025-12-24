@@ -19,7 +19,7 @@ class YahooFinanceClient:
                 self.logger.error(f"No data found for crypto: {currency}")
                 raise InvalidCryptoNameError("Yahoo Finance", f"Invalid crypto name {currency}")
 
-        except InvalidCryptoNameError as e:
+        except InvalidCryptoNameError:
             raise
 
         except Exception as e:

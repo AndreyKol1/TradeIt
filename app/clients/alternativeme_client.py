@@ -23,6 +23,6 @@ class AlternativeMeClient:
             self.logger.error(f"Network error: {str(e)}")
             raise ExternalAPIError("AlternativeMe", "Network Error")
 
-        self.logger.info(f"Successfully extracted fear and greed index!")
+        self.logger.info("Successfully extracted fear and greed index!")
         return data
 

@@ -2,7 +2,6 @@ import pandas as pd
 import asyncio
 
 from app.utils.logger import get_logger
-from app.utils.currency_validation import validate_cryptocurr
 from app.schemas.prices_schema import CryptoPricesDataSchema
 from app.schemas.intr_prices_valid_schema import YahooRequestSchema
 from app.clients.yahoo_finance_client import YahooFinanceClient
@@ -20,7 +19,7 @@ class IntraDayPricesService:
         """Fetch data for provided currency within user given timestamp"""
 
         currency = currency.upper()
-        valid = YahooRequestSchema(currency=currency, time_stamp=time_stamp, interval=interval) # validate if currency exists. Could be some mismatches
+        YahooRequestSchema(currency=currency, time_stamp=time_stamp, interval=interval) # validate if currency exists. Could be some mismatches
 
         # run sync yfinance async to align to project structure 
         hist_data = await asyncio.to_thread(self.client.fetch, currency, time_stamp, interval)

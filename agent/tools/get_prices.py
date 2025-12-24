@@ -5,6 +5,7 @@ from app.database.config import CONN_STRING
 from typing import List, Dict
 
 from agent.schemas.tool_intraday_prices_schema import GetIntradayPrices
+from app.exceptions import DataBaseConnectionError
 from app.utils.logger import get_logger
 
 from langchain.tools import tool
