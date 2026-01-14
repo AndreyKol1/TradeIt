@@ -1670,7 +1670,6 @@ dependencies = [
     { name = "pydantic" },
     { name = "pydantic-settings" },
     { name = "requests" },
-    { name = "ruff" },
     { name = "uvicorn" },
     { name = "yfinance" },
 ]
@@ -1681,6 +1680,7 @@ dev = [
     { name = "pytest-asyncio" },
     { name = "pytest-mock" },
     { name = "respx" },
+    { name = "ruff" },
 ]
 
 [package.metadata]
@@ -1699,7 +1699,7 @@ requires-dist = [
     { name = "pytest-mock", marker = "extra == 'dev'", specifier = ">=3.14.0" },
     { name = "requests", specifier = ">=2.32.5" },
     { name = "respx", marker = "extra == 'dev'", specifier = ">=0.21.0" },
-    { name = "ruff", specifier = ">=0.14.10" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.14.10" },
     { name = "uvicorn", specifier = ">=0.38.0" },
     { name = "yfinance", specifier = ">=0.2.66" },
 ]
