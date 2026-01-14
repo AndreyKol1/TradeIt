@@ -13,20 +13,20 @@ services:
           path: ./pyproject.toml
 
     ports:
-      - "8000:8000"
+      - "8080:8080"
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable
       GEMINI_API_KEY: ${GEMINI_API_KEY}
     depends_on:
       postgres:
         condition: service_healthy
 
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
-      interval: 30s
-      timeout: 10s
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"]
+      interval: 10s
+      timeout: 5s
       retries: 3
       start_period: 10s
 
@@ -44,6 +44,8 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER} 
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} 
+      POSTGRES_HOST: ${POSTGRES_HOST} 
+      POSTGRES_PORT: ${POSTGRES_PORT} 
       POSTGRES_DB: ${POSTGRES_DB} 
     ports:
       - "9999:5432"
